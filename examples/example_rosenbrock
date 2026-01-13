@@ -1,0 +1,26 @@
+# examples/example_rosenbrock.py
+import sys
+sys.path.append('..')
+from hho import HarrisHawksOptimization
+import numpy as np
+
+def rosenbrock_function(x):
+    return np.sum(100 * (x[1:] - x[:-1]**2)**2 + (1 - x[:-1])**2)
+
+if __name__ == "__main__":
+    print("="*70)
+    print("ROSENBROCK FUNCTION OPTIMIZATION")
+    print("="*70)
+    
+    hho = HarrisHawksOptimization(
+        objective_func=rosenbrock_function,
+        dim=10,
+        lb=-5,
+        ub=10,
+        n_hawks=30,
+        max_iter=500
+    )
+    
+    best_pos, best_fit = hho.optimize(verbose=True)
+    print(f"\nBest fitness: {best_fit:.10f}")
+    hho.plot_convergence()
